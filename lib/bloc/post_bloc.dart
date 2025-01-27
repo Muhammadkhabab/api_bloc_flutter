@@ -10,8 +10,10 @@ part 'post_state.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
   PostRepository fetchRepository = PostRepository();
+  List<PostModel> tamperaryList = [];
   PostBloc() : super(PostState()) {
     on<PostFetched>(fetchApi);
+    on<SearchItems>(_searchItems);
   }
 
   Future<void> fetchApi(PostFetched event, Emitter<PostState> emit) async {
@@ -27,5 +29,31 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         message: e.toString(),
       ));
     });
+  }
+
+  void _searchItems(SearchItems event, Emitter<PostState> emit) {
+    if (event.searchItem.isEmpty) {
+      emit(state.copyWith(
+        searchList: [],
+        searchMessage: '',
+      ));
+    } else {
+      tamperaryList = state.posts.where((element) => element.title.toString().toLowerCase().contains(event.searchItem.toLowerCase())).toList();
+      if (tamperaryList.isEmpty) {
+        emit(
+          state.copyWith(
+            searchList: [],
+            searchMessage: 'Not Data Found',
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            searchList: tamperaryList,
+            searchMessage: 'Data Found',
+          ),
+        );
+      }
+    }
   }
 }

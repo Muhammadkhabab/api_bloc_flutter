@@ -7,3 +7,8 @@ abstract class PostEvent extends Equatable {
 }
 
 class PostFetched extends PostEvent {}
+
+class SearchItems extends PostEvent {
+  final String searchItem;
+  const SearchItems({required this.searchItem});
+}
