@@ -38,6 +38,8 @@ dependencies:
   equatable:
   http:
   flutter_bloc:
+  formz:
+
 
 dev_dependencies:
   flutter_test:

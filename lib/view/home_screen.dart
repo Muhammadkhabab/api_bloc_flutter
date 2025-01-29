@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc_api_project/bloc/post_bloc.dart';
+import 'package:bloc_api_project/bloc/fetch_dart_bloc/post_bloc.dart';
 import 'package:bloc_api_project/view/post_detail_screen.dart';
+
+import '../bloc/fetch_dart_bloc/post_event.dart';
 
 class HomePostScreen extends StatefulWidget {
   const HomePostScreen({super.key});

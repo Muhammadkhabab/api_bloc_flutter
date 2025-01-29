@@ -1,4 +1,4 @@
-part of 'post_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class PostEvent extends Equatable {
   const PostEvent();

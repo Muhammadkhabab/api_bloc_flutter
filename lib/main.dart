@@ -1,4 +1,5 @@
-import 'package:bloc_api_project/bloc/post_bloc.dart';
+import 'package:bloc_api_project/bloc/fetch_dart_bloc/post_bloc.dart';
+import 'package:bloc_api_project/view/auth/login_screen.dart';
 import 'package:bloc_api_project/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const HomePostScreen(),
+        home: const LoginScreen(),
       ),
     );
   }

@@ -3,9 +3,9 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_api_project/models/post_model.dart';
 import 'package:equatable/equatable.dart';
 
-import '../repository/post_repostiory.dart';
+import '../../repository/post_repostiory.dart';
+import 'post_event.dart';
 
-part 'post_event.dart';
 part 'post_state.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
