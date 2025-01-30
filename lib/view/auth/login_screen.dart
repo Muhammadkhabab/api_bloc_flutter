@@ -144,9 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             context.read<LoginBloc>().add(LoginApi());
                           }
                         },
-                        child: state.loginStatus == LoginStatus.loading
-                            ? const CircularProgressIndicator()
-                            : const Text('Login'),
+                        child: state.loginStatus == LoginStatus.loading ? const CircularProgressIndicator() : const Text('Login'),
                       );
                     },
                   ),
