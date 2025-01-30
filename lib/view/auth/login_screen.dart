@@ -1,7 +1,7 @@
-import 'package:bloc_api_project/bloc/login_bloc/login_bloc.dart';
-import 'package:bloc_api_project/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc_api_project/bloc/login_bloc/login_bloc.dart';
+import 'package:bloc_api_project/view/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -51,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
             listener: (context, state) {
               if (state.loginStatus == LoginStatus.failure) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Login Failed'),
+                  SnackBar(
+                    content: Text(state.message ?? 'Login Failed'),
                     backgroundColor: Colors.redAccent,
                   ),
                 );
@@ -64,15 +64,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     backgroundColor: Colors.green,
                   ),
                 );
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostScreen()));
+                // Navigate to the home screen
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePostScreen(),
+                  ),
+                );
               }
             },
             child: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 30.0,
                 children: [
                   BlocBuilder<LoginBloc, LoginState>(
                     buildWhen: (current, previous) => current.email != previous.email,
@@ -80,7 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       return TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         focusNode: emailFocusNode,
-                        decoration: const InputDecoration(hintText: 'Email', border: OutlineInputBorder()),
+                        decoration: const InputDecoration(
+                          hintText: 'Email',
+                          border: OutlineInputBorder(),
+                        ),
                         onChanged: (value) {
                           context.read<LoginBloc>().add(EmailChanged(email: value));
                         },
@@ -98,13 +106,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     },
                   ),
+                  const SizedBox(height: 20),
                   BlocBuilder<LoginBloc, LoginState>(
                     buildWhen: (current, previous) => current.password != previous.password,
                     builder: (context, state) {
                       return TextFormField(
                         keyboardType: TextInputType.text,
                         focusNode: passwordFocusNode,
-                        decoration: const InputDecoration(hintText: 'Password', border: OutlineInputBorder()),
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          hintText: 'Password',
+                          border: OutlineInputBorder(),
+                        ),
                         onChanged: (value) {
                           context.read<LoginBloc>().add(PasswordChanged(password: value));
                         },
@@ -122,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     },
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   BlocBuilder<LoginBloc, LoginState>(
                     builder: (context, state) {
                       return ElevatedButton(
@@ -131,7 +144,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             context.read<LoginBloc>().add(LoginApi());
                           }
                         },
-                        child: state.loginStatus == LoginStatus.loading ? CircularProgressIndicator() : const Text('Login'),
+                        child: state.loginStatus == LoginStatus.loading
+                            ? const CircularProgressIndicator()
+                            : const Text('Login'),
                       );
                     },
                   ),
